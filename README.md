@@ -34,7 +34,8 @@ mysql -u <username> -h '<IP address>' -p
 ```create database teleportcommission;```
 
 #### Create user
-```//look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
+```
+//look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
 create user '<username>'@'<IP address>' 
 	identified by '<password>';
 
@@ -48,37 +49,47 @@ flush privileges;
 ```
 
 #### Drop user
-```drop user '<username>'@'<IP address>' ```
+```
+drop user '<username>'@'<IP address>'
+```
 
 
 #### Create table
-```//Create table called interf with five columns and diff datatypes
+```
+//Create table called interf with five columns and diff datatypes
 create table interf(id int not null primary key auto_increment, 
                          Vmax0 float, 
                          Vmax1 float, 
                          Vmax2 float, 
-                         datetime datetime); //create a new table```
+                         datetime datetime); //create a new table
+```
 
 #### Select single row of table
-```//Example
+```
+//Example
 select *
 from MyTable
-where MyPrimaryKey = 123;```
+where MyPrimaryKey = 123;
+```
 
 
 #### Select multiple rows of table
-```//Example
-select * from interf4 limit 55719,76063;```
+```
+//Example
+select * from interf4 limit 55719,76063;
+```
 
 #### Rename table
 ```//Example
-ALTER TABLE old_table RENAME new_table; ```
+ALTER TABLE old_table RENAME new_table; 
+```
 
 
 #### Rename column of table
 ```//Example
-alter table testTable rename column T1 to test; ```
+alter table testTable rename column T1 to test; 
+```
 
 #### Add column
-```ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column]; \\square bracket terms are optional```
+```ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column]; \\square bracket terms are optional ```
 
