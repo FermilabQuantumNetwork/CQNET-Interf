@@ -66,7 +66,7 @@ drop user '<username>'@'<IP address>'
 
 
 ### Create table
-* Example: create table called myTable with five columns and different datatypes.
+Example: create table called myTable with five columns and different datatypes.
 
 ```
 create table myTable(id int not null primary key auto_increment, 
@@ -77,7 +77,7 @@ create table myTable(id int not null primary key auto_increment,
 ```
 
 ### Select single row of table
-* Example:
+Example:
 
 ```
 select *
@@ -87,7 +87,7 @@ where <primary key name> = 123;
 
 
 ### Select multiple rows of table
-* Example:
+Example:
 
 ```
 select * from <table name> limit 55719,76063;
