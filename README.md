@@ -22,21 +22,24 @@ This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanfo
 
 ## Useful mysql syntax
 
-#### Login to mysql
+### Login to mysql
 From computer with database:
 ```
-mysql -u root -p //enter password
+mysql -u root -p
 ```
+
 From computer in network:
 ```
 mysql -u <username> -h '<IP address>' -p
 ```
 
-#### Create database
+These commands will prompt for password.
+
+### Create database
 ```create database teleportcommission;```
 
-#### Create user
-For more, look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
+### Create user
+For more info, look up "MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts"
 ```
 create user '<username>'@'<IP address>' 
 	identified by '<password>';
@@ -52,14 +55,14 @@ grant all privileges on *.* to '<username>'@'<IP address>' with grant option;
 flush privileges;
 ```
 
-#### Drop user
+### Drop user
 
 ```
 drop user '<username>'@'<IP address>'
 ```
 
 
-#### Create table
+### Create table
 Example: create table called interf with five columns and diff datatypes.
 
 ```
@@ -70,7 +73,7 @@ create table interf(id int not null primary key auto_increment,
                          datetime datetime); //create a new table
 ```
 
-#### Select single row of table
+### Select single row of table
 Example:
 
 ```
@@ -80,14 +83,14 @@ where MyPrimaryKey = 123;
 ```
 
 
-#### Select multiple rows of table
+### Select multiple rows of table
 Example:
 
 ```
 select * from interf4 limit 55719,76063;
 ```
 
-#### Rename table
+### Rename table
 Example:
 
 ```
@@ -95,14 +98,14 @@ ALTER TABLE old_table RENAME new_table;
 ```
 
 
-#### Rename column of table
+### Rename column of table
 Example:
 
 ```
 alter table testTable rename column T1 to test; 
 ```
 
-#### Add column
+### Add column
 The square bracket terms are optional.
 
 ```
