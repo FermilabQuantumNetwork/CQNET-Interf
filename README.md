@@ -21,8 +21,11 @@ This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanfo
 `sudo yum install python3-tkinter`
 
 ## Useful mysql syntax
+Angle bracket terms should be replaced with your inputs.
 
 ### Login to mysql
+These commands will prompt for password.
+
 * From computer with database:
 ```
 mysql -u root -p
@@ -33,10 +36,10 @@ mysql -u root -p
 mysql -u <username> -h '<IP address>' -p
 ```
 
-These commands will prompt for password.
+
 
 ### Create database
-```create database teleportcommission;```
+```create database <database name>;```
 
 ### Create user
 ```
@@ -54,7 +57,7 @@ grant all privileges on *.* to '<username>'@'<IP address>' with grant option;
 flush privileges;
 ```
 
-* For more info, look up "MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts"
+For more info, look up "MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts"
 ### Drop user
 
 ```
@@ -63,10 +66,10 @@ drop user '<username>'@'<IP address>'
 
 
 ### Create table
-* Example: create table called interf with five columns and diff datatypes.
+* Example: create table called myTable with five columns and different datatypes.
 
 ```
-create table interf(id int not null primary key auto_increment, 
+create table myTable(id int not null primary key auto_increment, 
                          Vmax0 float, 
                          Vmax1 float, 
                          Vmax2 float, 
@@ -78,8 +81,8 @@ create table interf(id int not null primary key auto_increment,
 
 ```
 select *
-from MyTable
-where MyPrimaryKey = 123;
+from <table name>
+where <primary key name> = 123;
 ```
 
 
@@ -87,28 +90,24 @@ where MyPrimaryKey = 123;
 * Example:
 
 ```
-select * from interf4 limit 55719,76063;
+select * from <table name> limit 55719,76063;
 ```
 
 ### Rename table
-* Example:
-
 ```
-ALTER TABLE old_table RENAME new_table; 
+ALTER TABLE <old_table> RENAME <new_table>; 
 ```
 
 
 ### Rename column of table
-* Example:
 
 ```
-alter table testTable rename column T1 to test; 
+alter table <table name> rename column <old name> to <new name>; 
 ```
 
 ### Add column
-* The square bracket terms are optional.
 
 ```
-ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column]; 
+ALTER TABLE table ADD [COLUMN] <column_name_1> <column_1_definition> [FIRST|AFTER existing_column]; 
 ```
-
+The square bracket terms are optional.
