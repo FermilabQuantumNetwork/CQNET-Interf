@@ -1,5 +1,7 @@
 # CQNETInterf
 Code for monitoring interferometer.
+
+## Overview
 1. `IntfScanFunc.py` (Documented) -- Contains functions for remotely controlling power supply
 2. `plot_36hours.py` (Documented) -- plots data from database for a 36 hour interferometer run
 3. `plot_interf.py` (Not documented) -- plots data from a table in the database
@@ -14,7 +16,69 @@ Code for monitoring interferometer.
 
 This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanford.edu if you have any questions.
 
-
-Tips:
-If you are on Centos, install tkinter to use graphical interface for viewing matplotlib plots:
+## Tips
+* If you are on Centos, install tkinter to use graphical interface for viewing matplotlib plots:
 `sudo yum install python3-tkinter`
+
+## Useful mysql syntax
+
+#### Login to mysql
+```//from computer with database:
+mysql -u root -p //enter password
+
+//from computer in network:
+mysql -u <username> -h '<IP address>' -p
+```
+
+#### Create database
+```create database teleportcommission;```
+
+#### Create user
+```//look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
+create user '<username>'@'<IP address>' 
+	identified by '<password>';
+grant all
+	on *.*
+to '<username>'@'<IP address>'  
+with grant option;
+
+//On terminal of computer with db:
+grant all privileges on *.* to '<username>'@'<IP address>' with grant option;
+flush privileges;
+```
+
+#### Drop user
+```drop user '<username>'@'<IP address>' ```
+
+
+#### Create table
+```//Create table called "interf" with five columns and diff datatypes
+create table interf(id int not null primary key auto_increment, 
+                         Vmax0 float, 
+                         Vmax1 float, 
+                         Vmax2 float, 
+                         datetime datetime); //create a new table```
+
+#### Select single row of table
+```//Example
+select *
+from MyTable
+where MyPrimaryKey = 123;```
+
+
+#### Select multiple rows of table
+```//Example
+select * from interf4 limit 55719,76063;```
+
+#### Rename table
+```//Example
+ALTER TABLE old_table RENAME new_table; ```
+
+
+#### Rename column of table
+```//Example
+alter table testTable rename column T1 to test; ```
+
+#### Add column
+```ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column]; \\square bracket terms are optional```
+
