@@ -1,6 +1,7 @@
 # CQNETInterf
 Code for monitoring interferometer.
 
+
 ## Overview
 1. `IntfScanFunc.py` (Documented) -- Contains functions for remotely controlling power supply
 2. `plot_36hours.py` (Documented) -- plots data from database for a 36 hour interferometer run
@@ -15,6 +16,42 @@ Code for monitoring interferometer.
 11. `write_W_interf.py` (Documented) -- Writes the wavelength vs. time data to the database from a .lta file.  Since the wavelength recording software isn't very compatible with linux, I wrote this script to as a work-around: save the data as recorded by the software as a '.lta' file (at CQNET, the software is run on the INQNET3 computer), send to a computer on the database network (such as INQNET1 at CQNET), and use this script to write the data to the database. In principle, there is an API that can be set up to write the data directly to the database as it is being recorded (see `run_W_interf.py`).
 
 This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanford.edu if you have any questions.
+
+## Requirements
+All of files included in this repository require Python 3, except for `tempvstime.py` which requires python 2.
+
+### Python packages
+Below are listed all the packages that are used in this repo. Many may already be installed on your computer, but otherwise you need to install them.
+#### Python3:
+* pymysql
+* ast
+* datetime
+* time
+* numpy
+* getpass
+* os
+* subprocess
+* socket
+* sys
+* glob
+* pipes
+* argparse
+* pyvisa
+* matplotlib
+* math
+* ThorlabsPM100
+* re
+* pandas
+* statistics
+* itertools
+* ctypes
+
+#### Python2
+* time
+* math
+* Adafruit_ADS1x15
+* mysql.connector
+
 
 ## Tips
 * If you are on Centos, install tkinter to use graphical interface for viewing matplotlib plots:
