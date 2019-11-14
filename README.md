@@ -51,9 +51,13 @@ Below are listed all the packages that are used in this repo. Many may already b
 * Adafruit_ADS1x15
 * mysql.connector
 
+To install python packages, use:
+* `python -m pip install --user <package1> <package2> ...`
+* `python3 -m pip install --user <package1> <package2> ...`
+
 
 ## Tips
-* If you are on Centos, install tkinter to use graphical interface for viewing matplotlib plots:
+* If you are on Centos 7, install tkinter to use graphical interface for viewing matplotlib plots:
 `sudo yum install python3-tkinter`
 
 ## Useful mysql syntax
