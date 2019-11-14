@@ -15,7 +15,6 @@ Code for monitoring interferometer.
 10. `tempvstime.py` (Documented) -- Records temp of thermistor attached to body of interferometer through an ADC. At CQNET, we run this script on a raspberry pi and ssh to the raspberry pi through a computer on the database network, such as the INQNET1 at CQNET.
 11. `write_W_interf.py` (Documented) -- Writes the wavelength vs. time data to the database from a .lta file.  Since the wavelength recording software isn't very compatible with linux, I wrote this script to as a work-around: save the data as recorded by the software as a '.lta' file (at CQNET, the software is run on the INQNET3 computer), send to a computer on the database network (such as INQNET1 at CQNET), and use this script to write the data to the database. In principle, there is an API that can be set up to write the data directly to the database as it is being recorded (see `run_W_interf.py`).
 
-This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanford.edu if you have any questions.
 
 ## Requirements
 All of files included in this repository require Python 3, except for `tempvstime.py` which requires python 2.
@@ -148,3 +147,10 @@ alter table <table name> rename column <old name> to <new name>;
 ALTER TABLE table ADD [COLUMN] <column_name_1> <column_1_definition> [FIRST|AFTER existing_column]; 
 ```
 The square bracket terms are optional.
+
+---
+This code was written by Sam Davis at Caltech. Contact me at s1dav1s@alumni.stanford.edu if you have any questions.
+
+
+
+
