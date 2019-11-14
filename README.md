@@ -37,10 +37,10 @@ mysql -u <username> -h '<IP address>' -p
 ```//look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
 create user '<username>'@'<IP address>' 
 	identified by '<password>';
-grant all
-	on *.*
-to '<username>'@'<IP address>'  
-with grant option;
+
+grant all on *.*
+	to '<username>'@'<IP address>'  
+	with grant option;
 
 //On terminal of computer with db:
 grant all privileges on *.* to '<username>'@'<IP address>' with grant option;
@@ -52,7 +52,7 @@ flush privileges;
 
 
 #### Create table
-```//Create table called "interf" with five columns and diff datatypes
+```//Create table called interf with five columns and diff datatypes
 create table interf(id int not null primary key auto_increment, 
                          Vmax0 float, 
                          Vmax1 float, 
