@@ -1,5 +1,5 @@
-# CQNETInterf
-Code for monitoring interferometer.
+# CQNET-Interf
+Code for monitoring the interferometer at Caltech.
 
 
 ## Overview
