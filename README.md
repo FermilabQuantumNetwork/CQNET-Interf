@@ -23,10 +23,12 @@ This code was written by Sam Davis at CQNET. Contact me at s1dav1s@alumni.stanfo
 ## Useful mysql syntax
 
 #### Login to mysql
-```//from computer with database:
+From computer with database:
+```
 mysql -u root -p //enter password
-
-//from computer in network:
+```
+From computer in network:
+```
 mysql -u <username> -h '<IP address>' -p
 ```
 
@@ -34,29 +36,33 @@ mysql -u <username> -h '<IP address>' -p
 ```create database teleportcommission;```
 
 #### Create user
+For more, look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
 ```
-//look up MySQL 6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts
 create user '<username>'@'<IP address>' 
 	identified by '<password>';
 
 grant all on *.*
 	to '<username>'@'<IP address>'  
 	with grant option;
+```
+On terminal of computer with database:
 
-//On terminal of computer with db:
+```
 grant all privileges on *.* to '<username>'@'<IP address>' with grant option;
 flush privileges;
 ```
 
 #### Drop user
+
 ```
 drop user '<username>'@'<IP address>'
 ```
 
 
 #### Create table
+Example: create table called interf with five columns and diff datatypes.
+
 ```
-//Create table called interf with five columns and diff datatypes
 create table interf(id int not null primary key auto_increment, 
                          Vmax0 float, 
                          Vmax1 float, 
@@ -65,8 +71,9 @@ create table interf(id int not null primary key auto_increment,
 ```
 
 #### Select single row of table
+Example:
+
 ```
-//Example
 select *
 from MyTable
 where MyPrimaryKey = 123;
@@ -74,22 +81,30 @@ where MyPrimaryKey = 123;
 
 
 #### Select multiple rows of table
+Example:
+
 ```
-//Example
 select * from interf4 limit 55719,76063;
 ```
 
 #### Rename table
-```//Example
+Example:
+
+```
 ALTER TABLE old_table RENAME new_table; 
 ```
 
 
 #### Rename column of table
-```//Example
+Example:
+
+```
 alter table testTable rename column T1 to test; 
 ```
 
 #### Add column
-```ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column]; \\square bracket terms are optional ```
+The square bracket terms are optional.
+
+```
+ALTER TABLE table ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column];  ```
 
