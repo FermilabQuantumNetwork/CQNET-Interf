@@ -9,8 +9,8 @@ import math
 import sys
 import pymysql
 
-db = pymysql.connect(host="localhost",  #IP of computer with database or "local host" if same computer
-		     user="root",         # user
+db = pymysql.connect(host="192.168.0.125",  #IP of computer with database or "local host" if same computer
+		     user="inqnet1",         # user
              password="Teleport1536!",  # your password
 		     database="teleportcommission", #database name
              charset='utf8mb4',
