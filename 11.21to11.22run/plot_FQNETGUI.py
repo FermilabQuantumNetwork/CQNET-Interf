@@ -3,7 +3,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import matplotlib
 #import tkinter
 #matplotlib.use('TkAgg')
 import datetime
@@ -12,11 +11,11 @@ import pymysql
 import os
 import time
 
-figname = "plot_FQNETGUIConst.png"
+figname = "plot_FQNETGUINov20to21.png"
 
 #START_TIME = '2019-11-19 16:31:00'
-START_TIME = '2019-11-20 14:17:00'
-END_TIME = 'NOW()'
+START_TIME = '2019-11-20 19:00:00'
+END_TIME = '2019-11-21 07:00:00'#'NOW()'
 
 
 
@@ -26,6 +25,8 @@ END_TIME = 'NOW()'
 
 T1 = []
 time_T1 = []
+P = []
+time_P = []
 Vap = []
 time_Vap = []
 Vin=[]
@@ -34,10 +35,6 @@ and1=[]
 and2 = []
 and3 = []
 abstime=[]
-
-matplotlib.rcParams["savefig.directory"] = os.chdir(os.path.dirname("./"))
-
-
 try:
 	db = pymysql.connect(host="192.168.0.125",  # this PC
 						 user="inqnet1",
@@ -48,22 +45,32 @@ try:
 	with db.cursor() as cur:
 
 		TABLE_NAME = "VapVin"
-		queryVapVin = "SELECT Vap, Vin,datetimeVap,datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND NOW()"
+		queryVapVin = "SELECT Vap, Vin,datetimeVap,datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND {ts %s}"
 		TABLE_NAME = "Temp"
-		queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND NOW()"
+		queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
+		TABLE_NAME = "Power"
+		queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
 		TABLE_NAME = "FQNETGUI"
-		startime = 0#105#1316
-		queryFQNETGUI = "SELECT and1, and2, and3, abstime FROM "+TABLE_NAME+" WHERE abstime >= " + str(startime)
+		startid=13616
+		startime = 152
+		queryFQNETGUI = "SELECT and1, and2, and3, abstime FROM "+TABLE_NAME+" WHERE id > "+str(startid)+" and abstime > "+str(startime)
 
 
-		cur.execute(queryT1, (START_TIME,))
+		cur.execute(queryT1, (START_TIME,END_TIME,))
 		row = cur.fetchone()
 		while row is not None:
 			T1.append(row["T1"])
 			time_T1.append(row["datetimeT1"])
 			row = cur.fetchone()
 
-		cur.execute(queryVapVin, (START_TIME,))
+		cur.execute(queryP, (START_TIME,END_TIME,))
+		row = cur.fetchone()
+		while row is not None:
+			P.append(10**6 * row["P"])
+			time_P.append(row["datetimeP"])
+			row = cur.fetchone()
+
+		cur.execute(queryVapVin, (START_TIME,END_TIME,))
 		row = cur.fetchone()
 		while row is not None:
 			Vap.append(row["Vap"])
@@ -91,6 +98,13 @@ try:
 		time_T1_dt=[]
 		time_T1_el_mins=[]
 
+		time_P_first = str(time_P[0])
+		print("time_P_first=",time_P_first )
+		time_P_last = str(time_P[-1])
+		first_time_P = datetime.datetime.strptime(time_P_first,'%Y-%m-%d %H:%M:%S')
+		time_P_dt=[]
+		time_P_el_mins=[]
+
 
 		time_Vap_first = str(time_Vap[0])
 		print("time_Vap_first=",time_Vap_first )
@@ -117,8 +131,7 @@ try:
 			t=str(t)
 			datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
 			elapsed = datime- first_time_Vap
-			#datime=datime.strftime('%H:%M')
-			time_Vap_dt.append(datime)
+			time_Vap_dt.append(datime)#.time)
 			time_Vap_el_mins.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 		for t in time_Vin:
 			t=str(t)
@@ -132,6 +145,12 @@ try:
 			elapsed = datime - first_time_T1
 			time_T1_dt.append(datime)#.time)
 			time_T1_el_mins.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+		for t in time_P:
+			t=str(t)
+			datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+			elapsed = datime - first_time_P
+			time_P_dt.append(datime)#.time)
+			time_P_el_mins.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 		for t in abstime:
 			t = t-startime
 			t = t/60
@@ -142,15 +161,12 @@ try:
 
 		#Stacked plot of all data
 
-		fig, axs = plt.subplots(5,1, num=238, sharex = True)
+		fig, axs = plt.subplots(6,1, num=238, sharex = True)
 		xmin=time_Vap_el_mins[0] #40
-		xmax=time_Vap_el_mins[-1]
-		#xmax=800#time_Vap_el_mins[-1] #60
+		xmax=time_Vap_el_mins[-1] #60
 		#Vap
 		axs[0].plot(time_Vap_el_mins, Vap,  linestyle = 'none', marker = '.', markersize = 2)
 		axs[0].set_ylabel(r"$V_{ap}$ (V)")
-		#formatter = matplotlib.ticker.FuncFormatter(lambda ms, x: time.strftime('%M:%S', time.gmtime(time(ms)))
-		#axs[0].xaxis.set_major_formatter(formatter)
 		axs[0].grid()
 
 		#Temp
@@ -158,23 +174,30 @@ try:
 		axs[1].set_ylabel(r"T ($\degree C$)")
 		axs[1].grid()
 
-		#and1
-		axs[2].plot(eltime_mins, and1,  linestyle = 'none', marker = '.', markersize = 2)
-		axs[2].set_ylabel("and1")
+		#Power
+		axs[2].plot(time_P_el_mins, P,  linestyle = 'none', marker = '.', markersize = 2)
+		axs[2].set_ylabel(r"P ($\mu$W)")
 		axs[2].grid()
 
-		#and2
-		axs[3].plot(eltime_mins, and2,  linestyle = 'none', marker = '.', markersize = 2)
-		axs[3].set_ylabel("and2")
+		#and1
+		axs[3].plot(eltime_mins, and1,  linestyle = 'none', marker = '.', markersize = 2)
+		axs[3].set_ylabel("and1")
 		axs[3].grid()
 
-		#and3
-		axs[4].plot(eltime_mins, and3,  linestyle = 'none', marker = '.', markersize = 2)
-		axs[4].set_ylabel("and3")
+		#and2
+		axs[4].plot(eltime_mins, and2,  linestyle = 'none', marker = '.', markersize = 2)
+		axs[4].set_ylabel("and2")
 		axs[4].grid()
 
+		#and3
+		axs[5].plot(eltime_mins, and3,  linestyle = 'none', marker = '.', markersize = 2)
+		axs[5].set_ylabel("and3")
+		axs[5].grid()
 
-		axs[4].set_xlim(xmin,xmax)
+
+		xlims=axs[5].get_xlim()
+		xmin1=xlims[0]
+		xmax1=xlims[1]
 		fig.suptitle("Coincidences from \n"+str(time_Vap[0]+datetime.timedelta(minutes=xmin))+" to "+str(time_Vap[0]+datetime.timedelta(minutes=xmax)))
 		plt.xlabel('Elapsed time (min)', fontsize =16)
 		plt.savefig(figname)
@@ -186,6 +209,7 @@ try:
 except KeyboardInterrupt:
 	print("")
 	print("time_T1_last=",time_T1_last )
+	print("time_P_last=",time_P_last )
 	print("time_Vap_last=",time_Vap_last )
 	print("time_Vin_last=",time_Vin_last )
 	db.close()
