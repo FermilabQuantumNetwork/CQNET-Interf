@@ -9,12 +9,12 @@ import math
 import sys
 import pymysql
 
-db = pymysql.connect(host="192.168.0.125",  #IP of computer with database or "local host" if same computer
-		     user="inqnet1",         # user
-             password="Teleport1536!",  # your password
-		     database="teleportcommission", #database name
-             charset='utf8mb4',
-             cursorclass=pymysql.cursors.DictCursor) # name of the data base
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 database="teleportcommission", #database name
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor) # name of the data base
 
 #Create cursor to select data from mysql.
 with db.cursor() as cur:

@@ -1,8 +1,8 @@
 #This records data from the BKPrecision powermeter (connected via USB) to the mysql database.
 #You need to run this as the root user and need to allow permission to the computer
 #to access the connected device folder. For example, if the folder name is 'usbtmc0'
-#and the computer name is 'inqnet4', type the following command into terminal on
-#linux: sudo chown inqnet4:inqnet4 /dev/usbtmc0
+#and the computer name is 'inqnet', type the following command into terminal on
+#linux: sudo chown inqnet:inqnet /dev/usbtmc0
 #Requirements: Python3, mysql, packages listed below
 import time
 import math
@@ -10,12 +10,12 @@ import pymysql
 import pyvisa as visa
 from ThorlabsPM100 import ThorlabsPM100, USBTMC
 
-db = pymysql.connect(host = "192.168.0.125", #Wired IPv4 Address of computer with database
-							 user ="INQNET4", # username
-							 password="Teleport1536!", # your password
-							 database="teleportcommission",
-							 charset='utf8mb4',
-							 cursorclass=pymysql.cursors.DictCursor) #name of the data
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 database="teleportcommission",
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor) #name of the data
 
 #Connect to device
 inst = USBTMC(device="/dev/usbtmc0")

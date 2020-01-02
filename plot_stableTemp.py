@@ -35,12 +35,12 @@ END_TIME_W = END_TIME_Vap
 
 
 #Connect to mysql database
-db = pymysql.connect(host="192.168.0.125",  # this PC
-		             user="inqnet1",
-                     passwd="Teleport1536!",  # your password
-                     db="teleportcommission", #Name of database
-                     charset='utf8mb4',
-                     cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 db="teleportcommission", #Name of database
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor)
 
 #Arrays to fill with data from mysql table
 P = []
@@ -53,51 +53,51 @@ Wavelength = []
 time_W = []
 
 try:
-    #Create cursor to select data from mysql.
-    with db.cursor() as cur:
-        #Mysql commands to select data from each column
-        TABLE_NAME = "Wavelength"
-        queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
-        TABLE_NAME = "Temp"
-        queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
-        TABLE_NAME = "Vav"
-        queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
-        TABLE_NAME = "Power"
-        queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
+	#Create cursor to select data from mysql.
+	with db.cursor() as cur:
+		#Mysql commands to select data from each column
+		TABLE_NAME = "Wavelength"
+		queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
+		TABLE_NAME = "Temp"
+		queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
+		TABLE_NAME = "Vav"
+		queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
+		TABLE_NAME = "Power"
+		queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
 
-        #Execute query and store data in array from P (Power) column
-        cur.execute(queryP,(START_TIME_P,END_TIME_P,))
-        row = cur.fetchone() #Retrieves one row from column
-        while row is not None:
-            P.append(1000000*row["P"])
-            time_P.append(row["datetimeP"])
-            row = cur.fetchone()
+		#Execute query and store data in array from P (Power) column
+		cur.execute(queryP,(START_TIME_P,END_TIME_P,))
+		row = cur.fetchone() #Retrieves one row from column
+		while row is not None:
+			P.append(1000000*row["P"])
+			time_P.append(row["datetimeP"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from Vav (Average output voltage) column
-        cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
-        row = cur.fetchone()
-        while row is not None:
-            Vav.append(row["Vav"])
-            time_Vav.append(row["datetimeVav"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Vav (Average output voltage) column
+		cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
+		row = cur.fetchone()
+		while row is not None:
+			Vav.append(row["Vav"])
+			time_Vav.append(row["datetimeVav"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from T1 (Temperature) column
-        cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
-        row = cur.fetchone()
-        while row is not None:
-            T1.append(row["T1"])
-            time_T1.append(row["datetimeT1"])
-            row = cur.fetchone()
+		#Execute query and store data in array from T1 (Temperature) column
+		cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
+		row = cur.fetchone()
+		while row is not None:
+			T1.append(row["T1"])
+			time_T1.append(row["datetimeT1"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from Wavelength column
-        cur.execute(queryW,(START_TIME_W,END_TIME_W,))
-        row = cur.fetchone()
-        while row is not None:
-            Wavelength.append(row["Wavelength"])
-            time_W.append(row["datetimeW"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Wavelength column
+		cur.execute(queryW,(START_TIME_W,END_TIME_W,))
+		row = cur.fetchone()
+		while row is not None:
+			Wavelength.append(row["Wavelength"])
+			time_W.append(row["datetimeW"])
+			row = cur.fetchone()
 finally: #Once store the data of each column in separate arrays, close the database
-    db.close()
+	db.close()
 
 #Get the first and last datetimes of the P data. The retrieved data falls within the
 #bounds of the start and end times that were specified, but may not be exactly the same.
@@ -132,32 +132,32 @@ time_W_el=[]
 
 #Create the elapsed time array for P
 for t in time_P:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_P
-    time_P_dt.append(datime)
-    time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_P
+	time_P_dt.append(datime)
+	time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 #Create the elapsed time array for Vav
 for t in time_Vav:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vav
-    time_Vav_dt.append(datime)
-    time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vav
+	time_Vav_dt.append(datime)
+	time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 #Create the elapsed time array for T1
 for t in time_T1:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_T1
-    time_T1_dt.append(datime)
-    time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_T1
+	time_T1_dt.append(datime)
+	time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 #Create the elapsed time array for Wavelength
 for t in time_W:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_W
-    time_W_dt.append(datime)
-    time_W_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_W
+	time_W_dt.append(datime)
+	time_W_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 
 
@@ -172,12 +172,12 @@ print("")
 #Convert output voltage to phase
 phase = []
 for v in Vav:
-    ph = (2*v-Vavmax -Vavmin)/(Vavmax-Vavmin)
-    if ph >1 or ph<-1:
-        print("sinph: ",ph)
-        print("vav: ",v)
-    ph = np.arcsin(ph)*180/np.pi
-    phase.append(ph)
+	ph = (2*v-Vavmax -Vavmin)/(Vavmax-Vavmin)
+	if ph >1 or ph<-1:
+		print("sinph: ",ph)
+		print("vav: ",v)
+	ph = np.arcsin(ph)*180/np.pi
+	phase.append(ph)
 
 
 #Stacked plot of all data

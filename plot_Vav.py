@@ -25,12 +25,12 @@ TABLE_NAME = 'interf4'
 
 
 #Connect to mysql database
-db = pymysql.connect(host="localhost",  #IP of computer with database. Local host if is same computer.
-		             user="root", #username
-                     passwd="Teleport1536!",  # your password
-                     db="teleportcommission", #name of the database
-                     charset='utf8mb4',
-                     cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 db="teleportcommission", #name of the database
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor)
 
 #Arrays to fill with data from mysql table
 Vav=[]
@@ -42,18 +42,18 @@ time_w = []
 
 try:
 	#Create cursor to select data from mysql.
-    with db.cursor() as cur:
+	with db.cursor() as cur:
 		#Mysql command to select data from each column
-        queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE id BETWEEN %s AND %s"
+		queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE id BETWEEN %s AND %s"
 		#Execute query and store data in array from Vav column
-        cur.execute(queryVav,(str(76503),str(134896),))
-        row = cur.fetchone()
-        while row is not None:
-            Vav.append(row["Vav"])
-            time_Vav.append(row["datetimeVav"])
-            row = cur.fetchone()
+		cur.execute(queryVav,(str(76503),str(134896),))
+		row = cur.fetchone()
+		while row is not None:
+			Vav.append(row["Vav"])
+			time_Vav.append(row["datetimeVav"])
+			row = cur.fetchone()
 finally: #Once store the data of each column in separate arrays, close the database
-    db.close()
+	db.close()
 
 
 #Get the first and last datetimes of the Vav data. The retrieved data falls within the
@@ -66,11 +66,11 @@ time_Vav_el = []
 
 #Create the elapsed time array for Vav
 for t in time_Vav:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vav
-    time_Vav_dt.append(datime)
-    time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vav
+	time_Vav_dt.append(datime)
+	time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Plot data
 fig = plt.figure(1)
