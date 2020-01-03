@@ -61,6 +61,6 @@ To install python packages, use:
 * `python -m pip install --user <package1> <package2> ...`
 * `python3 -m pip install --user <package1> <package2> ...`
 
-For other useful commands, see the CQNET repo's README.
+For tips and other useful commands for getting started, see the CQNET repo's README.
 ---
 This code was written by Sam Davis at Caltech. Contact me at s1dav1s@alumni.stanford.edu if you have any questions.
