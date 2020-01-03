@@ -1,8 +1,12 @@
-#This records data from our oscilloscope to the mysql database.
-#This code will open socket port 5025 and send commands to the oscilloscope
-#to retrieve output voltage data (Vav) from the interferometer.
+"""
+This records data from our oscilloscope to the mysql database.
+This code will open socket port 5025 and send commands to the oscilloscope
+to retrieve output voltage data (Vav) from the interferometer.
 
-#Requirements: Python3, mysql, packages listed below
+Requirements: Python3, mysql, packages listed below
+OS: CentOS7
+"""
+
 import time
 import socket
 import math

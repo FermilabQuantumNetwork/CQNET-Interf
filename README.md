@@ -18,6 +18,8 @@ Currently very slow and inefficient because redownloads data from whole table ea
 12. `tempvstime.py` (Python2, Commented, rbpi2) -- Records temp of thermistor attached to body of interferometer through an ADC. At CQNET, we run this script on a raspberry pi and ssh to the raspberry pi through a computer on the database network (QuTagPC or INQNET1).
 13. `write_W_interf.py` (Python3, Commented, QuTagPC) -- Writes the wavelength vs. time data to the database from a .lta file.  Since the wavelength recording software is run on Windows, I wrote this script to as a work-around: save the data as recorded by the software as a '.lta' file (on INQNET3), send to a computer on the database network (INQNET1), and use this script to write the data to the database. In principle, there is an API that can be set up to write the data directly to the database as it is being recorded (see `run_W_interf.py`).
 
+The folders feature data and code edited for specific data collections.
+
 
 ## Requirements
 ### Mysql
@@ -25,7 +27,7 @@ The scripts here store and collect data from mysql tables from local mysql datab
 mysql installed, you first need to install it (see https://www.mysql.com/downloads/) and create databases, tables, and users. Unless you set up the exact same databases and tables, you will probably have to change the database, table, and column names/specs in the scripts.
 
 ### Python packages
-Below are listed all the packages that are used in this repo. Many may already be installed on your computer, but otherwise you should install them.
+Below are listed all the packages that are used in this repo. Some may already be installed on your computer, but otherwise you should install them.
 #### Python3:
 * pymysql
 * ast

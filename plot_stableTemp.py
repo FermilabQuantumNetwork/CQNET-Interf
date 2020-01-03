@@ -1,10 +1,14 @@
-#This plots data from an overnight test run of the interferometer. The test run
-#corresponded to a constant applied voltage trace to test the long term stability
-#using a peltier thermal feedback control.
-#It retrieves data stored from the corresponding tables in the database and then plots the data.
-#Whereas `plot_36hours.py` retrieves data all from the same table, this retrieves
-#data from separate tables, one for each parameter.
-#Requirements: Python3, mysql, packages listed below
+"""
+This plots data from an overnight test run of the interferometer. The test run
+corresponded to a constant applied voltage trace to test the long term stability
+using a peltier thermal feedback control.
+It retrieves data stored from the corresponding tables in the database and then plots the data.
+Whereas `plot_36hours.py` retrieves data all from the same table, this retrieves
+data from separate tables, one for each parameter.
+
+Requirements: Python3, mysql, packages listed below
+OS: CentOS7
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt

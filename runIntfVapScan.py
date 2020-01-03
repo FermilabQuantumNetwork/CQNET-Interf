@@ -1,11 +1,13 @@
-#This sends and receives voltages to the BK Precision power supply.
-#Vap is the voltage that is sent to power supply by this script.
-#Once Vap is received by the power supply, the current channel is set to Vap.
-#Vin is the voltage that the current channel is set to as reported by the
-#power supply.
-#Requirements: Python3, pymysql, IntfScanFunc.py
+"""
+This sends and receives voltages to the BK Precision power supply.
+Vap is the voltage that is sent to power supply by this script.
+Once Vap is received by the power supply, the current channel is set to Vap.
+Vin is the voltage that the current channel is set to as reported by the
+power supply.
 
-#Need 'IntfScanFunc.py' in same directory
+Requirements: Python3, pymysql, IntfScanFunc.py (in same directory)
+OS: CentOS7
+"""
 from IntfScanFunc import *
 import pymysql
 

@@ -1,5 +1,9 @@
-#This file stores various useful functions for running the interferometer.
-#Requirements: Python3, packages listed below
+"""
+This file stores various useful functions for running the interferometer.
+
+Requirements: Python3, packages listed below
+OS: CentOS7
+"""
 
 import requests
 import ast

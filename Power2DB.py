@@ -1,9 +1,14 @@
-#This records data from the BKPrecision powermeter (connected via USB) to the mysql database.
-#You need to run this as the root user and need to allow permission to the computer
-#to access the connected device folder. For example, if the folder name is 'usbtmc0'
-#and the computer name is 'inqnet', type the following command into terminal on
-#linux: sudo chown inqnet:inqnet /dev/usbtmc0
-#Requirements: Python3, mysql, packages listed below
+"""
+This records data from the BKPrecision powermeter (connected via USB) to the mysql database.
+You need to run this as the root user and need to allow permission to the computer
+to access the connected device folder. For example, if the folder name is 'usbtmc0'
+and the user name is 'user', type the following command into terminal on
+linux: sudo chown user:user /dev/usbtmc0
+
+Requirements: Python3, mysql, packages listed below
+OS: CentOS7
+"""
+
 import time
 import math
 import pymysql

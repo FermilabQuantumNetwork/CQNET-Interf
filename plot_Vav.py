@@ -1,8 +1,11 @@
-#This plots data from the Vav column of a table in our database.
-#It retrieves data stored from the corresponding table in the database and then plots the data.
-#For more detailed comments, see plot_36hours.py
-#Requirements: Python3, mysql, packages listed below
+"""
+This plots data from the Vav column of a table in our database.
+It retrieves data stored from the corresponding table in the database and then plots the data.
+For more detailed comments, see plot_36hours.py
 
+Requirements: Python3, mysql, packages listed below
+OS: CentOS7
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates

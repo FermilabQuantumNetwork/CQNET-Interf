@@ -1,8 +1,11 @@
-# Records temperature of a thermistor from an ADC.
-# Modified from simple demo of reading each analog input from the ADS1x15 and printing it to
-# the screen (Author: Tony DiCola, License: Public Domain)
+"""
+Records temperature of a thermistor from an ADC.
+Modified from simple demo of reading each analog input from the ADS1x15 and printing it to
+the screen (Author: Tony DiCola, License: Public Domain)
 
-#Requirements: Python2
+Requirements: Python2
+OS: Raspberry Pi
+"""
 import time
 import math
 # Import the ADS1x15 module.

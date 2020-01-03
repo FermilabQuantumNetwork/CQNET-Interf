@@ -1,7 +1,10 @@
-#This writes wavelength vs time data from a '.lta' file
-#to the database.
-#Requirements: Python3, mysql, packages listed below.
+"""
+This writes wavelength vs time data from a '.lta' file
+to the database.
 
+Requirements: Python3, mysql, packages listed below.
+OS: CentOS7
+"""
 
 import time
 import math

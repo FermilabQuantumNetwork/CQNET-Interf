@@ -1,9 +1,12 @@
-#This plots data from a 36 hour test run of the interferometer. The test run
-#corresponded to the applied voltage trace defined by `VoltageTestIntf(Vmin,Vmax,numSteps)`
-#from IntfScanFunc.py
-#It retrieves data stored from the corresponding table in the database and then plots the data.
-#Requirements: Python3, mysql, packages listed below
+"""
+This plots data from a 36 hour test run of the interferometer. The test run
+corresponded to the applied voltage trace defined by `VoltageTestIntf(Vmin,Vmax,numSteps)`
+from IntfScanFunc.py
+It retrieves data stored from the corresponding table in the database and then plots the data.
 
+Requirements: Python3, mysql, packages listed below
+OS: CentOS7
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
