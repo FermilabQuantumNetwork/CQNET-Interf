@@ -3,20 +3,20 @@ Code for monitoring the interferometer at Caltech.
 
 
 ## Overview
-1. `IntfScanFunc.py` (Python3, Documented, INQNET4) -- Contains functions for remotely controlling power supply
-2. `plot_36hours.py` (Python3, Documented, INQNET1) -- plots data from database for a 36 hour interferometer run
-3. `plot_interf.py` (Python3, Not documented, QuTagPC) -- plots data from a table in the database
-4. `plot_longstairs.py` (Python3, Not documented, INQNET1) -- plots data from database for overnight run of interferometer with long steps
-5. `plot_realtime.py` (Python3, Not documented, INQNET1) -- plots data from database for interferometer in real time.
+1. `IntfScanFunc.py` (Python3, Commented, INQNET4) -- Contains functions for remotely controlling power supply
+2. `plot_36hours.py` (Python3, Commented, INQNET1) -- plots data from database for a 36 hour interferometer run
+3. `plot_interf.py` (Python3, Not Commented, QuTagPC) -- plots data from a table in the database
+4. `plot_longstairs.py` (Python3, Not Commented, INQNET1) -- plots data from database for overnight run of interferometer with long steps
+5. `plot_realtime.py` (Python3, Not Commented, INQNET1) -- plots data from database for interferometer in real time.
 Currently very slow and inefficient because redownloads data from whole table each time instead of just fetching most recent data entry.
-6. `plot_stableTemp.py` (Python3, Documented, INQNET1) -- plots data from database for an overnight run at constant applied voltage with stabilized temperature.
-7. `plot_Vav.py` (Python3, Documented, QuTagPC) -- plots data from the Vav table (output voltage of interferometer) in the database
-8. `Power2DB.py` (Python3, Documented, INQNET4) -- Records power from powermeter and writes to database. This needs to be run on a computer where the powermeter is connected.
-9. `run_DAQ_interf.py` (Python3, Documented, INQNET1) -- Records output voltage of interferometer from oscilloscope and writes to database. This needs to be run on a computer in the database network.
+6. `plot_stableTemp.py` (Python3, Commented, INQNET1) -- plots data from database for an overnight run at constant applied voltage with stabilized temperature.
+7. `plot_Vav.py` (Python3, Commented, QuTagPC) -- plots data from the Vav table (output voltage of interferometer) in the database
+8. `Power2DB.py` (Python3, Commented, INQNET4) -- Records power from powermeter and writes to database. This needs to be run on a computer where the powermeter is connected.
+9. `run_DAQ_interf.py` (Python3, Commented, INQNET1) -- Records output voltage of interferometer from oscilloscope and writes to database. This needs to be run on a computer in the database network.
 10. `run_W_interf.py` (Python3, Not documented) -- for recording wavelength data and writing to database in real time using API. Not finished.
-11. `runIntfVapScan.py` (Python3, Documented, INQNET4) -- Controls the power supply, records the voltage sent to the interferometer as reported by the power supply and writes to the database. Needs to be run on computer where the power supply is connected (USB).
-12. `tempvstime.py` (Python2, Documented, rbpi2) -- Records temp of thermistor attached to body of interferometer through an ADC. At CQNET, we run this script on a raspberry pi and ssh to the raspberry pi through a computer on the database network (QuTagPC or INQNET1).
-13. `write_W_interf.py` (Python3, Documented, QuTagPC) -- Writes the wavelength vs. time data to the database from a .lta file.  Since the wavelength recording software is run on Windows, I wrote this script to as a work-around: save the data as recorded by the software as a '.lta' file (on INQNET3), send to a computer on the database network (INQNET1), and use this script to write the data to the database. In principle, there is an API that can be set up to write the data directly to the database as it is being recorded (see `run_W_interf.py`).
+11. `runIntfVapScan.py` (Python3, Commented, INQNET4) -- Controls the power supply, records the voltage sent to the interferometer as reported by the power supply and writes to the database. Needs to be run on computer where the power supply is connected (USB).
+12. `tempvstime.py` (Python2, Commented, rbpi2) -- Records temp of thermistor attached to body of interferometer through an ADC. At CQNET, we run this script on a raspberry pi and ssh to the raspberry pi through a computer on the database network (QuTagPC or INQNET1).
+13. `write_W_interf.py` (Python3, Commented, QuTagPC) -- Writes the wavelength vs. time data to the database from a .lta file.  Since the wavelength recording software is run on Windows, I wrote this script to as a work-around: save the data as recorded by the software as a '.lta' file (on INQNET3), send to a computer on the database network (INQNET1), and use this script to write the data to the database. In principle, there is an API that can be set up to write the data directly to the database as it is being recorded (see `run_W_interf.py`).
 
 
 ## Requirements
