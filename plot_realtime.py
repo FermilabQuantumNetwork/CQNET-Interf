@@ -32,9 +32,9 @@ time_Vin = []
 try:
 	n=0
 	while True:
-		db = pymysql.connect(host="192.168.0.125",  # this PC
-							 user="inqnet1",
-							 passwd="Teleport1536!",  # your password
+		db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+							 user="<USERNAME>", #Replace <USERNAME> with your username
+							 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
 							 db="teleportcommission",
 							 charset='utf8mb4',
 							 cursorclass=pymysql.cursors.DictCursor)

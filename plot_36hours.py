@@ -34,12 +34,12 @@ END_TIME_W = END_TIME_Vap
 TABLE_NAME = 'interf6'
 
 #Connect to mysql database
-db = pymysql.connect(host="192.168.0.125",  #IP of computer with database
-		             user="inqnet1", #username
-                     passwd="Teleport1536!",  # your password
-                     db="teleportcommission", #name of database
-                     charset='utf8mb4',
-                     cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 db="teleportcommission", #name of database
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor)
 
 #Arrays to fill with data from mysql table
 Vap=[]
@@ -56,65 +56,65 @@ Wavelength = []
 time_w = []
 
 try:
-    #Create cursor to select data from mysql.
-    with db.cursor() as cur:
-        #Mysql commands to select data from each column
-        queryVap = "SELECT Vap, datetimeVap FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND {ts %s}"
-        queryVin = "SELECT Vin, datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVin BETWEEN {ts %s} AND {ts %s}"
-        queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
-        queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
-        queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
-        queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
+	#Create cursor to select data from mysql.
+	with db.cursor() as cur:
+		#Mysql commands to select data from each column
+		queryVap = "SELECT Vap, datetimeVap FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND {ts %s}"
+		queryVin = "SELECT Vin, datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVin BETWEEN {ts %s} AND {ts %s}"
+		queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
+		queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
+		queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
+		queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
 
-        #Execute query and store data in array from Vap (applied voltage) column
-        cur.execute(queryVap,(START_TIME_Vap,END_TIME_Vap,))
-        row = cur.fetchone() #Retrieves one row from column
-        while row is not None:
-            Vap.append(row["Vap"])
-            time_Vap.append(row["datetimeVap"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Vap (applied voltage) column
+		cur.execute(queryVap,(START_TIME_Vap,END_TIME_Vap,))
+		row = cur.fetchone() #Retrieves one row from column
+		while row is not None:
+			Vap.append(row["Vap"])
+			time_Vap.append(row["datetimeVap"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from Vin (voltage as read from meter) column
-        cur.execute(queryVin,(START_TIME_Vin,END_TIME_Vin,))
-        row = cur.fetchone()
-        while row is not None:
-            Vin.append(row["Vin"])
-            time_Vin.append(row["datetimeVin"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Vin (voltage as read from meter) column
+		cur.execute(queryVin,(START_TIME_Vin,END_TIME_Vin,))
+		row = cur.fetchone()
+		while row is not None:
+			Vin.append(row["Vin"])
+			time_Vin.append(row["datetimeVin"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from P (Power) column
-        cur.execute(queryP,(START_TIME_P,END_TIME_P,))
-        row = cur.fetchone()
-        while row is not None:
-            P.append(1000000*row["P"])
-            time_P.append(row["datetimeP"])
-            row = cur.fetchone()
+		#Execute query and store data in array from P (Power) column
+		cur.execute(queryP,(START_TIME_P,END_TIME_P,))
+		row = cur.fetchone()
+		while row is not None:
+			P.append(1000000*row["P"])
+			time_P.append(row["datetimeP"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from Vav (Average output voltage) column
-        cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
-        row = cur.fetchone()
-        while row is not None:
-            Vav.append(row["Vav"])
-            time_Vav.append(row["datetimeVav"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Vav (Average output voltage) column
+		cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
+		row = cur.fetchone()
+		while row is not None:
+			Vav.append(row["Vav"])
+			time_Vav.append(row["datetimeVav"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from T1 (Temperature) column
-        cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
-        row = cur.fetchone()
-        while row is not None:
-            T1.append(row["T1"])
-            time_T1.append(row["datetimeT1"])
-            row = cur.fetchone()
+		#Execute query and store data in array from T1 (Temperature) column
+		cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
+		row = cur.fetchone()
+		while row is not None:
+			T1.append(row["T1"])
+			time_T1.append(row["datetimeT1"])
+			row = cur.fetchone()
 
-        #Execute query and store data in array from Wavelength column
-        cur.execute(queryW,(START_TIME_W,END_TIME_W,))
-        row = cur.fetchone()
-        while row is not None:
-            Wavelength.append(row["Wavelength"])
-            time_w.append(row["datetimeW"])
-            row = cur.fetchone()
+		#Execute query and store data in array from Wavelength column
+		cur.execute(queryW,(START_TIME_W,END_TIME_W,))
+		row = cur.fetchone()
+		while row is not None:
+			Wavelength.append(row["Wavelength"])
+			time_w.append(row["datetimeW"])
+			row = cur.fetchone()
 finally: #Once store the data of each column in separate arrays, close the database
-    db.close()
+	db.close()
 
 #Get the first and last datetimes of the Vap data. The retrieved data falls within the
 #bounds of the start and end times that were specified, but may not be exactly the same.
@@ -163,51 +163,51 @@ time_W_el=[]
 
 #Create the elapsed time array for Vap
 for t in time_Vap:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vap
-    time_Vap_dt.append(datime)
-    time_Vap_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vap
+	time_Vap_dt.append(datime)
+	time_Vap_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Create the elapsed time array for Vin
 for t in time_Vin:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_Vin
-    time_Vin_dt.append(datime)
-    time_Vin_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_Vin
+	time_Vin_dt.append(datime)
+	time_Vin_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Create the elapsed time array for P
 for t in time_P:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_P
-    time_P_dt.append(datime)
-    time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_P
+	time_P_dt.append(datime)
+	time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Create the elapsed time array for Vav
 for t in time_Vav:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vav
-    time_Vav_dt.append(datime)
-    time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vav
+	time_Vav_dt.append(datime)
+	time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Create the elapsed time array for T1
 for t in time_T1:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_T1
-    time_T1_dt.append(datime)
-    time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_T1
+	time_T1_dt.append(datime)
+	time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 #Create the elapsed time array for Wavelength
 for t in time_w:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_w
-    time_W_dt.append(datime)
-    time_W_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_w
+	time_W_dt.append(datime)
+	time_W_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 
 Vavmin = min(Vav)
@@ -218,13 +218,13 @@ print(visibility)
 #Convert output voltage to phase
 phase = []
 for v in Vav:
-    ph = (2*v-Vavmax -Vavmin)/(Vavmax-Vavmin)
-    if ph > 1 or ph <-1:
-        print("sinph: ", ph)
-        print("vav: ", v)
-        ph=round(ph)
-    ph = np.arcsin(ph)*180/np.pi
-    phase.append(ph)
+	ph = (2*v-Vavmax -Vavmin)/(Vavmax-Vavmin)
+	if ph > 1 or ph <-1:
+		print("sinph: ", ph)
+		print("vav: ", v)
+		ph=round(ph)
+	ph = np.arcsin(ph)*180/np.pi
+	phase.append(ph)
 
 
 #Stacked plot of all data
@@ -285,7 +285,7 @@ stdP = np.std(P)
 meanP=np.mean(P)
 percentP=[]
 for i in range(len(P)):
-    percentP.append(100*(P[i]-meanP)/meanP)
+	percentP.append(100*(P[i]-meanP)/meanP)
 percentP = np.array(percentP)
 axs.plot(time_P_el, percentP,  linestyle = 'none', marker = '.', markersize = 2)
 axs.plot(time_P_el, np.zeros(len(time_P_el)), label = r"$\overline{P}$"+r" = {:.3f} $\mu W$".format(meanP))
@@ -373,7 +373,7 @@ axs[0].grid()
 #Percent Phase
 percentPhase = []
 for i in range(len(phase)):
-    percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
+	percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
 percentPhase = np.array(percentPhase)
 axs[1].plot(time_Vav_el, percentPhase,  linestyle = 'none', marker = '.', markersize = 2)
 axs[1].plot(time_Vav_el, np.zeros(len(time_Vav_el)), label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$".format(meanPhase))
@@ -386,7 +386,7 @@ meanT=np.mean(T1[dtT1MinInd:dtT1MaxInd])
 #Percent T
 percentT1 = []
 for i in range(len(T1)):
-    percentT1.append(100*(T1[i]-meanT)/meanT)
+	percentT1.append(100*(T1[i]-meanT)/meanT)
 percentT1 = np.array(percentT1)
 axs[2].plot(time_T1_el, percentT1,  linestyle = 'none', marker = '.', markersize = 2)
 axs[2].plot(time_T1_el, np.zeros(len(time_T1_el)), label = r"$\overline{T}$"+r" = {:.3f}$\degree$C".format(meanT))
@@ -461,7 +461,7 @@ axs[0].grid()
 #Percent Phase
 percentPhase = []
 for i in range(len(phase)):
-    percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
+	percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
 percentPhase = np.array(percentPhase)
 axs[1].plot(time_Vav_el, percentPhase,  linestyle = 'none', marker = '.', markersize = 2)
 axs[1].plot(time_Vav_el,np.zeros(len(time_Vav_el)),label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$".format(meanPhase))
@@ -474,7 +474,7 @@ meanT=np.mean(T1[dtT1MinInd:dtT1MaxInd])
 #Percent T
 percentT1 = []
 for i in range(len(T1)):
-    percentT1.append(100*(T1[i]-meanT)/meanT)
+	percentT1.append(100*(T1[i]-meanT)/meanT)
 percentT1 = np.array(percentT1)
 axs[2].plot(time_T1_el, percentT1,  linestyle = 'none', marker = '.', markersize = 2)#, label = r"$\overline{T}$"+r" = {:.3f}$\degree$C, $\sigma_T$ = {:.3e}$\degree$C".format(meanT,stdT))
 axs[2].plot(time_T1_el,np.zeros(len(time_T1_el)),label = r"$\overline{T}$"+r" = {:.3f}$\degree$C".format(meanT))
@@ -550,7 +550,7 @@ axs[0].grid()
 #Percent Phase
 percentPhase = []
 for i in range(len(phase)):
-    percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
+	percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
 percentPhase = np.array(percentPhase)
 axs[1].plot(time_Vav_el, percentPhase,  linestyle = 'none', marker = '.', markersize = 2)#, label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$, $\sigma_\phi$ = {:.3f}$\degree$".format(meanPhase,stdPhase))
 axs[1].plot(time_Vav_el,np.zeros(len(time_Vav_el)),label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$".format(meanPhase))
@@ -563,7 +563,7 @@ meanT=np.mean(T1[dtT1MinInd:dtT1MaxInd])
 #Percent T
 percentT1 = []
 for i in range(len(T1)):
-    percentT1.append(100*(T1[i]-meanT)/meanT)
+	percentT1.append(100*(T1[i]-meanT)/meanT)
 percentT1 = np.array(percentT1)
 axs[2].plot(time_T1_el, percentT1,  linestyle = 'none', marker = '.', markersize = 2)#, label = r"$\overline{T}$"+r" = {:.3f}$\degree$C, $\sigma_T$ = {:.3e}$\degree$C".format(meanT,stdT))
 axs[2].plot(time_T1_el,np.zeros(len(time_T1_el)),label = r"$\overline{T}$"+r" = {:.3f}$\degree$C".format(meanT))
@@ -639,7 +639,7 @@ axs[0].grid()
 #Percent Phase
 percentPhase = []
 for i in range(len(phase)):
-    percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
+	percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
 percentPhase = np.array(percentPhase)
 axs[1].plot(time_Vav_el, percentPhase,  linestyle = 'none', marker = '.', markersize = 2)
 axs[1].plot(time_Vav_el,np.zeros(len(time_Vav_el)),label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$".format(meanPhase))
@@ -651,7 +651,7 @@ meanT=np.mean(T1[dtT1MinInd:dtT1MaxInd])
 #Percent T
 percentT1 = []
 for i in range(len(T1)):
-    percentT1.append(100*(T1[i]-meanT)/meanT)
+	percentT1.append(100*(T1[i]-meanT)/meanT)
 percentT1 = np.array(percentT1)
 axs[2].plot(time_T1_el, percentT1,  linestyle = 'none', marker = '.', markersize = 2)#, label = r"$\overline{T}$"+r" = {:.3f}$\degree$C, $\sigma_T$ = {:.3e}$\degree$C".format(meanT,stdT))
 axs[2].plot(time_T1_el,np.zeros(len(time_T1_el)),label = r"$\overline{T}$"+r" = {:.3f}$\degree$C".format(meanT))
@@ -728,7 +728,7 @@ axs[0].grid()
 #Percent Phase
 percentPhase = []
 for i in range(len(phase)):
-    percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
+	percentPhase.append(100*(phase[i]-meanPhase)/meanPhase)
 percentPhase = np.array(percentPhase)
 axs[1].plot(time_Vav_el, percentPhase,  linestyle = 'none', marker = '.', markersize = 2)
 axs[1].plot(time_Vav_el,np.zeros(len(time_Vav_el)),label = r"$\overline{\phi}$"+r" = {:.3f}$\degree$".format(meanPhase))
@@ -741,7 +741,7 @@ meanT=np.mean(T1[dtT1MinInd:dtT1MaxInd])
 #Percent T
 percentT1 = []
 for i in range(len(T1)):
-    percentT1.append(100*(T1[i]-meanT)/meanT)
+	percentT1.append(100*(T1[i]-meanT)/meanT)
 percentT1 = np.array(percentT1)
 axs[2].plot(time_T1_el, percentT1,  linestyle = 'none', marker = '.', markersize = 2)
 axs[2].plot(time_T1_el,np.zeros(len(time_T1_el)), label=r"$\overline{T}$"+r" = {:.3f}$\degree$C".format(meanT))

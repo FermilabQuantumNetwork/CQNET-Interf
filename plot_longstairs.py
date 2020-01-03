@@ -1,4 +1,4 @@
-''#!/usr/bin/python2.7
+#!/usr/bin/python2.7
 
 import numpy as np
 #import matplotlib
@@ -22,9 +22,9 @@ END_TIME = '2019-11-14 1:40:00'
 
 #connect to database
 
-db = pymysql.connect(host="192.168.0.125",  # this PC
-					 user="inqnet1",
-					 passwd="Teleport1536!",  # your password
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
 					 db="teleportcommission",
 					 charset='utf8mb4',
 					 cursorclass=pymysql.cursors.DictCursor)

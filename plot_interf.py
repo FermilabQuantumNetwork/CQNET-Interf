@@ -38,12 +38,12 @@ TABLE_NAME = 'interf6'
 
 #connect to database
 
-db = pymysql.connect(host="localhost",  # this PC
-		             user="root",
-                     passwd="Teleport1536!",  # your password
-                     db="teleportcommission",
-                     charset='utf8mb4',
-                     cursorclass=pymysql.cursors.DictCursor)        # name of the data base
+db = pymysql.connect(host="<IP ADDRESS>",  #Replace <IP ADDRESS> with the IP of computer with database. Local host if is same computer.
+					 user="<USERNAME>", #Replace <USERNAME> with your username
+					 passwd="<PASSWORD>",  #Replace <PASSWORD> with your password
+					 db="teleportcommission",
+					 charset='utf8mb4',
+					 cursorclass=pymysql.cursors.DictCursor)        # name of the data base
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
@@ -62,64 +62,64 @@ wavelength = []
 time_w = []
 
 try:
-    with db.cursor() as cur:
-        queryVap = "SELECT Vap, datetimeVap FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND {ts %s}"
-        queryVin = "SELECT Vin, datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVin BETWEEN {ts %s} AND {ts %s}"
-        queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
-        queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
-        queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
-        queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
+	with db.cursor() as cur:
+		queryVap = "SELECT Vap, datetimeVap FROM "+TABLE_NAME+" WHERE datetimeVap BETWEEN {ts %s} AND {ts %s}"
+		queryVin = "SELECT Vin, datetimeVin FROM "+TABLE_NAME+" WHERE datetimeVin BETWEEN {ts %s} AND {ts %s}"
+		queryW = "SELECT Wavelength, datetimeW FROM "+TABLE_NAME+" WHERE datetimeW BETWEEN {ts %s} AND {ts %s}"
+		queryT1 = "SELECT T1, datetimeT1 FROM "+TABLE_NAME+" WHERE datetimeT1 BETWEEN {ts %s} AND {ts %s}"
+		queryVav = "SELECT Vav, datetimeVav FROM "+TABLE_NAME+" WHERE datetimeVav BETWEEN {ts %s} AND {ts %s}"
+		queryP = "SELECT P, datetimeP FROM "+TABLE_NAME+" WHERE datetimeP BETWEEN {ts %s} AND {ts %s}"
 
-        cur.execute(queryVap,(START_TIME_Vap,END_TIME_Vap,))
-        row = cur.fetchone()
-        while row is not None:
-            Vap.append(row["Vap"]) #sometimes the scope give me a crazy number like 99999999999 so I replace those values by the first measurement
-            time_Vap.append(row["datetimeVap"])
-            row = cur.fetchone()
-
-
-        cur.execute(queryVin,(START_TIME_Vin,END_TIME_Vin,))
-        row = cur.fetchone()
-        while row is not None:
-            Vin.append(row["Vin"])
-            time_Vin.append(row["datetimeVin"])
-            row = cur.fetchone()
-
-        cur.execute(queryP,(START_TIME_P,END_TIME_P,))
-        row = cur.fetchone()
-        while row is not None:
-            P.append(row["P"])
-            time_P.append(row["datetimeP"])
-            row = cur.fetchone()
-
-        cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
-        row = cur.fetchone()
-        while row is not None:
-            Vav.append(row["Vav"]) #sometimes the scope give me a crazy number like 99999999999 so I replace those values by the first measurement
-            time_Vav.append(row["datetimeVav"])
-            row = cur.fetchone()
+		cur.execute(queryVap,(START_TIME_Vap,END_TIME_Vap,))
+		row = cur.fetchone()
+		while row is not None:
+			Vap.append(row["Vap"]) #sometimes the scope give me a crazy number like 99999999999 so I replace those values by the first measurement
+			time_Vap.append(row["datetimeVap"])
+			row = cur.fetchone()
 
 
-        cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
-        row = cur.fetchone()
-        while row is not None:
-            T1.append(row["T1"])
-            time_T1.append(row["datetimeT1"])
-            row = cur.fetchone()
+		cur.execute(queryVin,(START_TIME_Vin,END_TIME_Vin,))
+		row = cur.fetchone()
+		while row is not None:
+			Vin.append(row["Vin"])
+			time_Vin.append(row["datetimeVin"])
+			row = cur.fetchone()
 
-        cur.execute(queryW,(START_TIME_W,END_TIME_W,))
-        row = cur.fetchone()
-        while row is not None:
-            wavelength.append(row["Wavelength"])
-            time_w.append(row["datetimeW"])
-            row = cur.fetchone()
+		cur.execute(queryP,(START_TIME_P,END_TIME_P,))
+		row = cur.fetchone()
+		while row is not None:
+			P.append(row["P"])
+			time_P.append(row["datetimeP"])
+			row = cur.fetchone()
+
+		cur.execute(queryVav,(START_TIME_Vav,END_TIME_Vav,))
+		row = cur.fetchone()
+		while row is not None:
+			Vav.append(row["Vav"]) #sometimes the scope give me a crazy number like 99999999999 so I replace those values by the first measurement
+			time_Vav.append(row["datetimeVav"])
+			row = cur.fetchone()
+
+
+		cur.execute(queryT1,(START_TIME_T1,END_TIME_T1,))
+		row = cur.fetchone()
+		while row is not None:
+			T1.append(row["T1"])
+			time_T1.append(row["datetimeT1"])
+			row = cur.fetchone()
+
+		cur.execute(queryW,(START_TIME_W,END_TIME_W,))
+		row = cur.fetchone()
+		while row is not None:
+			wavelength.append(row["Wavelength"])
+			time_w.append(row["datetimeW"])
+			row = cur.fetchone()
 
 
 
 
 
 finally:
-    db.close()
+	db.close()
 
 time_Vap_first = str(time_Vap[0])
 time_Vap_last = str(time_Vap[-1])
@@ -158,46 +158,46 @@ time_w_dt=[]
 time_w_el=[]
 
 for t in time_Vap:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vap
-    time_Vap_dt.append(datime)
-    time_Vap_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vap
+	time_Vap_dt.append(datime)
+	time_Vap_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 for t in time_Vin:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_Vin
-    time_Vin_dt.append(datime)
-    #time_T1_s.append(elapsed.total_seconds())
-    time_Vin_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_Vin
+	time_Vin_dt.append(datime)
+	#time_T1_s.append(elapsed.total_seconds())
+	time_Vin_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 for t in time_P:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_P
-    time_P_dt.append(datime)
-    #time_T1_s.append(elapsed.total_seconds())
-    time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_P
+	time_P_dt.append(datime)
+	#time_T1_s.append(elapsed.total_seconds())
+	time_P_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 for t in time_Vav:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime- first_time_Vav
-    time_Vav_dt.append(datime)
-    time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime- first_time_Vav
+	time_Vav_dt.append(datime)
+	time_Vav_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 for t in time_T1:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_T1
-    time_T1_dt.append(datime)
-    #time_T1_s.append(elapsed.total_seconds())
-    time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_T1
+	time_T1_dt.append(datime)
+	#time_T1_s.append(elapsed.total_seconds())
+	time_T1_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 for t in time_w:
-    t=str(t)
-    datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
-    elapsed = datime - first_time_w
-    time_w_dt.append(datime)
-    #time_T1_s.append(elapsed.total_seconds())
-    time_w_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
+	t=str(t)
+	datime=datetime.datetime.strptime(t,'%Y-%m-%d %H:%M:%S')
+	elapsed = datime - first_time_w
+	time_w_dt.append(datime)
+	#time_T1_s.append(elapsed.total_seconds())
+	time_w_el.append((elapsed.total_seconds())/60) #Convert elapsed time from seconds to minutes
 
 
 #second parameter is the variable to be ploted
@@ -210,15 +210,15 @@ Vavmax =max(Vav)
 
 phase = []
 for v in Vav:
-    # ph = v-Vavmin
-    # rangeVav = Vavmax-Vavmin
-    # ph=np.arcsin(ph/rangeVav)*180/np.pi
-    ph = (2*v-Vavmax +Vavmin)/(Vavmax-Vavmin)
-    #ph =(Vavmax+3*Vavmin - 2*v)/(Vavmax + Vavmin)
-    #print(ph)
-    ph = np.arcsin(ph)*180/np.pi
-    #print(ph)
-    phase.append(ph)
+	# ph = v-Vavmin
+	# rangeVav = Vavmax-Vavmin
+	# ph=np.arcsin(ph/rangeVav)*180/np.pi
+	ph = (2*v-Vavmax +Vavmin)/(Vavmax-Vavmin)
+	#ph =(Vavmax+3*Vavmin - 2*v)/(Vavmax + Vavmin)
+	#print(ph)
+	ph = np.arcsin(ph)*180/np.pi
+	#print(ph)
+	phase.append(ph)
 
 
 
@@ -268,7 +268,7 @@ axs[4].grid()
 
 
 for nn, ax in enumerate(axs):
-    ax.legend(prop={'size':10})
+	ax.legend(prop={'size':10})
 
 
 plt.xlabel('Elapsed time (min)', fontsize =16)
