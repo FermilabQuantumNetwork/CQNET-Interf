@@ -22,7 +22,15 @@ Currently very slow and inefficient because redownloads data from whole table ea
 
 ### Notes
 * To get started on the API for the wavemeter, here is an email from an exchange with a company representative:
-  - ```the API (wlmData.dll) is included in the software. The dll is installed to the windows/system32 (/sysWow64) folder. In the installation path of the wavemeter you will find a subfolder /projects, in this folder you will find some simple examples. If you tell us the programming language you want to use we can send you also some more "sophisticated" examples." ```
+    ```the API (wlmData.dll) is included in the software. The dll is installed
+    to the windows/system32 (/sysWow64) folder.
+
+    In the installation path of the wavemeter you will find a subfolder
+    /projects, in this folder you will find some simple examples.
+
+    If you tell us the programming language you want to use we can send you
+    also some more "sophisticated" examples.```
+    
     - For INQNET3, the API is located in `This PC > Windows(C:) > Windows > System32 > wlmData.dll`
 
 
