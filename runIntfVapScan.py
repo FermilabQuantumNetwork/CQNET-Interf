@@ -1,6 +1,8 @@
 """
-This sends and receives voltages to the BK Precision power supply.
-Vap is the voltage that is sent to power supply by this script.
+This sends and receives voltages to the BK Precision power supply to control the
+setpoint temperature of the interferometer.
+Vap is the voltage that is sent to power supply by this script, connected to the
+thermistor's setpoint temp.
 Once Vap is received by the power supply, the current channel is set to Vap.
 Vin is the voltage that the current channel is set to as reported by the
 power supply.
@@ -76,7 +78,7 @@ try:
 	if backup:
 		txtFile.write(line+"\n")
 
-	#Loops through elements in Vapplied array, sets power supply to each element.
+	#Temp scan: Loops through elements in Vapplied array, sets power supply to each element.
 	for Vap in Vapplied:
 		time.sleep(1) #Wait 1 second
 		values[0]=str(i)
