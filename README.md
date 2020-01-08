@@ -71,6 +71,8 @@ Below are listed all the packages that are used in this repo. Some may already b
 * Adafruit_ADS1x15
 * mysql.connector
 
+You can look up the packages and their installation commands on pypi.org.
+
 ### Installation commands
 To install python packages, use:
 * `python -m pip install --user <package1> <package2> ...`
