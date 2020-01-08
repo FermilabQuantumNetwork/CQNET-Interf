@@ -50,7 +50,7 @@ Below are listed all the packages that are used in this repo. Some may already b
 * getpass
 * os
 * subprocess
-* socket
+* sockets
 * sys
 * glob
 * pipes
